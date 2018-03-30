@@ -1,0 +1,71 @@
+From 177b09670fc1712966d20192f2bfafcc7cd87384 Mon Sep 17 00:00:00 2001
+From: Ioan-Adrian Ratiu <adi@adirat.com>
+Date: Fri, 30 Mar 2018 15:07:10 +0300
+Subject: [PATCH] sox: formats: implement musl pipe rewinding
+
+The big and only reason why pipe rewinding wasn't implemented for musl
+is that musl upstream is very vehement about not exposing the struct
+FILE definition in contrast to GNU & the rest of libc's which share it.
+
+So the only way to rewind the pipe in musl is to copy the actual
+opaque struct definition over, then it works great.
+
+Of course this may break in the future if the musl FILE implementation
+changes but that is very rare and it's better than silently disabling
+the feature.
+
+Upstream-Status: Innappropriate [OE/Musl specific]
+
+Signed-off-by: Ioan-Adrian Ratiu <adi@adirat.com>
+---
+ src/formats.c | 37 +++++++++++++++++++++++++++++++------
+ 1 file changed, 31 insertions(+), 6 deletions(-)
+
+diff --git a/src/formats.c b/src/formats.c
+index 724a4cd..fc9a95e 100644
+--- a/src/formats.c
++++ b/src/formats.c
+@@ -419,12 +419,37 @@ static void UNUSED rewind_pipe(FILE * fp)
+       defined _ISO_STDIO_ISO_H || defined __sgi
+   fp->_ptr = fp->_base;
+ #else
+-  /* To fix this #error, either simply remove the #error line and live without
+-   * file-type detection with pipes, or add support for your compiler in the
+-   * lines above.  Test with cat monkey.wav | ./sox --info - */
+-  #error FIX NEEDED HERE
+-  #define NO_REWIND_PIPE
+-  (void)fp;
++struct MUSL_FILE { // _IO_FILE in src/internal/stdio_impl.h
++        unsigned flags;
++        unsigned char *rpos, *rend;
++        int (*close)(FILE *);
++        unsigned char *wend, *wpos;
++        unsigned char *mustbezero_1;
++        unsigned char *wbase;
++        size_t (*read)(FILE *, unsigned char *, size_t);
++        size_t (*write)(FILE *, const unsigned char *, size_t);
++        off_t (*seek)(FILE *, off_t, int);
++        unsigned char *buf;
++        size_t buf_size;
++        FILE *prev, *next;
++        int fd;
++        int pipe_pid;
++        long lockcount;
++        short dummy3;
++        signed char mode;
++        signed char lbf;
++        volatile int lock;
++        volatile int waiters;
++        void *cookie;
++        off_t off;
++        char *getln_buf;
++        void *mustbezero_2;
++        unsigned char *shend;
++        off_t shlim, shcnt;
++        FILE *prev_locked, *next_locked;
++        struct __locale_struct *locale;
++};
++  ((struct MUSL_FILE*)fp)->rpos -= PIPE_AUTO_DETECT_SIZE;
+ #endif
+ }
+ 
