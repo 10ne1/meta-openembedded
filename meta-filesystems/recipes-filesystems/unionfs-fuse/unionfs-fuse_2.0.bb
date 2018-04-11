@@ -12,7 +12,7 @@ SRC_URI = "git://github.com/rpodgorny/${BPN}.git;branch=master \
            "
 SRCREV = "c8d23a9a75f1a62988593671839e8a168a79f3e5"
 
-DEPENDS = "fuse"
+DEPENDS = "fuse2"
 
 S = "${WORKDIR}/git"
 

@@ -1,6 +1,6 @@
 DESCRIPTION = "The NTFS-3G driver is an open source, freely available NTFS driver for Linux with read and write support."
 HOMEPAGE = "http://www.ntfs-3g.org/"
-DEPENDS = "fuse libgcrypt"
+DEPENDS = "fuse2 libgcrypt"
 PROVIDES = "ntfsprogs ntfs-3g"
 LICENSE = "GPLv2 & LGPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
@@ -27,7 +27,7 @@ EXTRA_OEMAKE = "LDCONFIG=echo"
 PACKAGES =+ "ntfs-3g ntfsprogs libntfs-3g"
 
 FILES_ntfs-3g = "${base_sbindir}/*.ntfs-3g ${bindir}/ntfs-3g* ${base_sbindir}/mount.ntfs"
-RDEPENDS_ntfs-3g += "fuse"
+RDEPENDS_ntfs-3g += "fuse2"
 RRECOMMENDS_ntfs-3g = "util-linux-mount"
 
 FILES_ntfsprogs = "${base_sbindir}/* ${bindir}/* ${sbindir}/*"

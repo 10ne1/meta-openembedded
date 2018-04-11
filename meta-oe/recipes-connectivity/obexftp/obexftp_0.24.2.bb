@@ -20,10 +20,10 @@ OECMAKE_GENERATOR = "Unix Makefiles"
 
 PACKAGECONFIG ?= ""
 # fuse support will need meta-filesystems layer
-PACKAGECONFIG[fuse] = "-DENABLE_FUSE=ON,-DENABLE_FUSE=OFF,fuse"
+PACKAGECONFIG[fuse] = "-DENABLE_FUSE=ON,-DENABLE_FUSE=OFF,fuse2"
 PACKAGECONFIG[swig] = "-DENABLE_SWIG=ON,-DENABLE_SWIG=OFF,swig"
 
-DEPENDS_remove_class-native = "fuse-native"
+DEPENDS_remove_class-native = "fuse2-native"
 
 S = "${WORKDIR}/${BP}-Source"
 

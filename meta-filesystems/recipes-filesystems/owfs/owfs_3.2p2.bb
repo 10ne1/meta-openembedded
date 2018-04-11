@@ -7,7 +7,7 @@ LICENSE = "GPLv2 & LGPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=12a64df1cc87275e940cab05ee75c37d \
                     file://COPYING.LIB;md5=16ff3ffebed582e19ea7a4f48ec77b42"
 
-DEPENDS = "fuse virtual/libusb0"
+DEPENDS = "fuse2 virtual/libusb0"
 # v3.2p2
 SRCREV = "93c1f36d9ac481075287da331d5184f590f8c0fa"
 SRC_URI = "git://github.com/owfs/owfs \

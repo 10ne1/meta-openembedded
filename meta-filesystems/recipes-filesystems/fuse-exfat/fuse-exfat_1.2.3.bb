@@ -9,7 +9,7 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 SRC_URI = "${DEBIAN_MIRROR}/main/f/fuse-exfat/fuse-exfat_${PV}.orig.tar.gz \
 "
-DEPENDS = "fuse virtual/libc"
+DEPENDS = "fuse2 virtual/libc"
 RRECOMMENDS_${PN} = "util-linux-mount"
 
 inherit autotools pkgconfig

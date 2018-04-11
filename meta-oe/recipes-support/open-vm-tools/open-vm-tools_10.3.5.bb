@@ -63,7 +63,7 @@ X11_DEPENDS = "libxext libxi libxrender libxrandr libxtst gtk+ gdk-pixbuf"
 PACKAGECONFIG[x11] = ",${NO_X11_FLAGS},${X11_DEPENDS}"
 
 # fuse gets implicitly detected; there is no --without-fuse option.
-PACKAGECONFIG[fuse] = ",,fuse"
+PACKAGECONFIG[fuse] = ",,fuse2"
 
 CFLAGS_append_toolchain-clang = " -Wno-address-of-packed-member"
 FILES_${PN} += "\
@@ -76,7 +76,7 @@ FILES_${PN}-dev += "${libdir}/open-vm-tools/plugins/common/lib*.la"
 
 CONFFILES_${PN} += "${sysconfdir}/vmware-tools/tools.conf"
 
-RDEPENDS_${PN} = "util-linux libdnet fuse"
+RDEPENDS_${PN} = "util-linux libdnet fuse2"
 
 do_install_append() {
     ln -sf ${sbindir}/mount.vmhgfs ${D}/sbin/mount.vmhgfs
