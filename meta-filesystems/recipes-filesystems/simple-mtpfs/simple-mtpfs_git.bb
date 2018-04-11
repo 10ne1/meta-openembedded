@@ -3,7 +3,7 @@ HOMEPAGE = "https://github.com/phatina/simple-mtpfs"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=75859989545e37968a99b631ef42722e"
 
-DEPENDS = "fuse libmtp"
+DEPENDS = "fuse2 libmtp"
 
 inherit autotools pkgconfig
 

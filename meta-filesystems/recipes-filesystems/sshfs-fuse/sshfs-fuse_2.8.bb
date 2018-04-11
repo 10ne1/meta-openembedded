@@ -3,7 +3,7 @@ AUTHOR = "Miklos Szeredi <miklos@szeredi.hu>"
 HOMEPAGE = "http://fuse.sourceforge.net/sshfs.html"
 SECTION = "console/network"
 LICENSE = "GPLv2"
-DEPENDS = "glib-2.0 fuse"
+DEPENDS = "glib-2.0 fuse2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 SRC_URI = "git://github.com/libfuse/sshfs;tag=b2fa7593586b141298e6159f40f521d2b0f4f894 \

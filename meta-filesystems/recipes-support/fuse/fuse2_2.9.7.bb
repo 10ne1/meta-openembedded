@@ -10,7 +10,7 @@ LICENSE = "GPLv2 & LGPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING.LIB;md5=4fbd65380cdd255951079008b364516c"
 
-SRC_URI = "https://github.com/libfuse/libfuse/releases/download/${BP}/${BP}.tar.gz \
+SRC_URI = "https://github.com/libfuse/libfuse/releases/download/fuse-${PV}/fuse-${PV}.tar.gz \
            file://gold-unversioned-symbol.patch \
            file://aarch64.patch \
            file://0001-fuse-fix-the-return-value-of-help-option.patch \
@@ -21,6 +21,8 @@ SRC_URI[sha256sum] = "832432d1ad4f833c20e13b57cf40ce5277a9d33e483205fc63c78111b3
 
 inherit autotools pkgconfig update-rc.d systemd
 
+S = "${WORKDIR}/fuse-${PV}"
+
 INITSCRIPT_NAME = "fuse"
 INITSCRIPT_PARAMS = "start 3 S . stop 20 0 6 ."
 
@@ -28,9 +30,9 @@ SYSTEMD_SERVICE_${PN} = ""
 
 DEPENDS = "gettext-native"
 
-PACKAGES =+ "fuse-utils-dbg fuse-utils libulockmgr libulockmgr-dev libulockmgr-dbg"
+PACKAGES =+ "${PN}-utils-dbg ${PN}-utils libulockmgr libulockmgr-dev libulockmgr-dbg"
 
-RRECOMMENDS_${PN}_class-target = "kernel-module-fuse libulockmgr fuse-utils"
+RRECOMMENDS_${PN}_class-target = "kernel-module-fuse libulockmgr ${PN}-utils"
 
 FILES_${PN} += "${libdir}/libfuse.so.*"
 FILES_${PN}-dev += "${libdir}/libfuse*.la"
@@ -40,10 +42,10 @@ FILES_libulockmgr-dev += "${libdir}/libulock*.la"
 FILES_libulockmgr-dbg += "${libdir}/.debug/libulock*"
 
 # Forbid auto-renaming to libfuse-utils
-FILES_fuse-utils = "${bindir} ${base_sbindir}"
-FILES_fuse-utils-dbg = "${bindir}/.debug ${base_sbindir}/.debug"
-DEBIAN_NOAUTONAME_fuse-utils = "1"
-DEBIAN_NOAUTONAME_fuse-utils-dbg = "1"
+FILES_${PN}-utils = "${bindir} ${base_sbindir}"
+FILES_${PN}-utils-dbg = "${bindir}/.debug ${base_sbindir}/.debug"
+DEBIAN_NOAUTONAME_${PN}-utils = "1"
+DEBIAN_NOAUTONAME_${PN}-utils-dbg = "1"
 
 do_configure_prepend() {
     # Make this explicit so overriding base_sbindir propagates properly.

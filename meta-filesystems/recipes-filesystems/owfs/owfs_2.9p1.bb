@@ -7,7 +7,7 @@ LICENSE = "GPLv2 & LGPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=a0bc427f423a41220ab79a0b392218bd \
                     file://COPYING.LIB;md5=865c4bd642d9e04f43925ad7e929ae87"
 
-DEPENDS = "fuse virtual/libusb0"
+DEPENDS = "fuse2 virtual/libusb0"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/owfs/owfs-${PV}.tar.gz \
            file://owhttpd \
