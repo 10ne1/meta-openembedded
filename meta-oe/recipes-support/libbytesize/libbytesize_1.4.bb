@@ -19,6 +19,7 @@ DEPENDS += " \
     libpcre \
     gmp \
     mpfr \
+    gettext-native \
 "
 
 FILES_${PN} += "${PYTHON_SITEPACKAGES_DIR}/bytesize"
